@@ -8,7 +8,7 @@ const CounterComponent = () => {
     };
 
     const handleDecrement = () => {
-        setCount(count - 1);
+        setCount(count > 0 ? count - 1 : 0);
     };
 
     const handleReset = () => {
@@ -28,6 +28,7 @@ const CounterComponent = () => {
         <button 
             data-testid="decrement"
             onClick={handleDecrement}
+            disabled={count === 0}
         >
             Decrement
         </button>

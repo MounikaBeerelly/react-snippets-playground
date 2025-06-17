@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, screen } from '@testing-library/react'
-import ToggleButton from './Togglecomponent';
+import ToggleButton from '../components/Togglecomponent';
 
 describe('ToggleButton', () => {
 

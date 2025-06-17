@@ -1,6 +1,6 @@
 import React from "react";
 import {render, screen, fireEvent} from '@testing-library/react';
-import CounterComponent from "./CounterComponent";
+import CounterComponent from "../components/CounterComponent";
 
 describe('Counter Component test cases', () => {
 
