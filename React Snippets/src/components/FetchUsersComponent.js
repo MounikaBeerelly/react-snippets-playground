@@ -16,10 +16,16 @@ const FetchUsersComponent = () => {
             });
     }, []);
 
-    const fetchEmployees = () => {
-        axios.get('https://jsonplaceholder.typicode.com/users') 
-        .then(res => setEmployees(res.data))
-        .catch(error => console.error(error))
+    const fetchEmployees = async () => {
+        try {
+            const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+            setEmployees(response.data);
+            setLoading(false);
+        }
+        catch(error) {
+            console.log('Error in fetching data', error);
+            setLoading(false);
+        }
     };
 
     useEffect(() => {

@@ -6,6 +6,7 @@ import ShowHideText from './components/ShowHideText';
 import TodoComponent from './components/TodoComponent';
 import Togglebutton from './components/Togglebutton';
 import ToggleComponent from './components/Togglecomponent';
+import UseFetchcomponent from './components/CustomHook/UseFetchComponent';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
       <hr />
       <FetchUsersComponent />
       <hr />
+      <h2>Custom Hook example</h2>
+      <UseFetchcomponent />
+      <hr/>
       <ToggleComponent />
       <hr />
       <CounterComponent />
