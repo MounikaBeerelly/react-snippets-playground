@@ -82,6 +82,162 @@ React is popular compared to other frameworks (like Angular, Vue, etc.) because 
   - You want the best of both React and Angular with simplicity
   - Company	Uses - Alibaba, Xiaomi, GitLab, Laravel
 
+### How to handle errors in React.js ?
+In React.js, you can handle errors in three main ways, depending on the type of error you're dealing with:
+1. **Runtime Errors in UI – Use Error Boundaries (Class Components Only)**
+React provides a concept called Error Boundaries to catch JavaScript errors in the component tree (e.g., rendering, lifecycle methods).
+```
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
+  static getDerivedStateFromError(error) {
+    return { hasError: true }; // Update state so next render shows fallback UI
+  }
 
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught by ErrorBoundary:', error, errorInfo);
+    // Send to logging service
+  }
 
+  render() {
+    if (this.state.hasError) {
+      return <h2>Something went wrong.</h2>;
+    }
+
+    return this.props.children;
+  }
+}
+```
+Usage:
+```
+<ErrorBoundary>
+  <MyComponent />
+</ErrorBoundary>
+```
+**Note:** Error Boundaries do not catch errors in:
+  - Event handlers
+  - Asynchronous code (e.g., setTimeout)
+  - Server-side rendering
+  - Errors thrown inside Error Boundaries themselves
+2. **Async Errors (e.g., API Calls)**
+Use try/catch blocks inside async functions or useEffect hooks.
+```
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get('/api/users');
+        setUsers(res.data);
+      } catch (err) {
+        setError('Failed to fetch users');
+        console.error(err);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  if (error) return <div>{error}</div>;
+
+  return (
+    <ul>
+      {users.map(user => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+3. **Form Validation & Custom Errors**
+Use form validation libraries like Formik, React Hook Form, or write custom validations.
+```
+function Form() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email.includes('@')) {
+      setError('Invalid email address');
+      return;
+    }
+    setError('');
+    // Continue submission
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input value={email} onChange={e => setEmail(e.target.value)} />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+To monitor and log errors in production:
+  - Use tools like Sentry, LogRocket, New Relic, or Datadog
+  - Send caught errors to a backend logging service via fetch or axios
+### How to check the execution time of a JavaScript function?
+1. **console.time() and console.timeEnd()**
+  - This is the simplest and most readable way.
+  ```
+function exampleFunction() {
+    console.time("exampleFunction");
+  
+    // Your logic here
+    for (let i = 0; i < 1000000; i++) {
+      Math.sqrt(i);
+    }
+  
+    console.timeEnd("exampleFunction");
+  }
+  exampleFunction();
+```
+- Output (in console):
+  ```
+  exampleFunction: 12.345ms
+  ```
+2. **Using performance.now() (High-resolution timer)**
+  - Useful for more precise timing, especially in performance-sensitive apps.
+  ```
+  function exampleFunction() {
+    const start = performance.now();
+  
+    // Code to measure
+    for (let i = 0; i < 1000000; i++) {
+      Math.sqrt(i);
+    }
+  
+    const end = performance.now();
+    console.log(`Execution time: ${end - start} ms`);
+  }
+  exampleFunction();
+```
+- performance.now() gives time in fractional milliseconds (e.g., 5.123456 ms), more accurate than Date.now().
+3. **Using Date.now() (Simple but Less Accurate)**
+  - This is less precise (millisecond accuracy) but still works for many cases.
+  ```
+  function exampleFunction() {
+    const start = Date.now();
+  
+    // Code to measure
+    for (let i = 0; i < 1000000; i++) {
+      Math.sqrt(i);
+    }
+  
+    const end = Date.now();
+    console.log(`Execution time: ${end - start} ms`);
+  }
+  exampleFunction();
+  ```
+
+### How to monitor React code?
