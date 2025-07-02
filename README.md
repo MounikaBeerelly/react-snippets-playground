@@ -241,3 +241,30 @@ function exampleFunction() {
   ```
 
 ### How to monitor React code?
+Monitoring React code means tracking the health, performance, errors, and user interactions of your React application in real time, both in development and production. Here’s how you can monitor React code effectively:
+1. **Error Monitoring**
+  - Use tools like:
+    - Sentry — captures runtime errors, stack traces, user context
+    - LogRocket — records session replay + errors
+    - Bugsnag, Rollbar — alternatives for error tracking
+  - How to integrate:
+    - Install SDK, wrap your app with their provider, and they automatically capture unhandled errors including React errors and promise rejections.
+2. **Performance Monitoring**
+  - React DevTools Profiler (for development):
+    - Lets you inspect component render times and why components re-render.
+  - Browser Performance APIs:
+    - Use performance.mark() and performance.measure() to instrument specific parts of your code.
+  - APM Tools:
+    - Application Performance Monitoring tools like New Relic, Datadog, or Elastic APM can track frontend metrics (page load time, resource timing).
+3. **Logging**
+  - Use structured logging for important app events or errors via console.log() during development.
+  - Use remote logging libraries that send logs to your backend or services like Loggly or Papertrail.
+4. **User Behavior Analytics**
+  - Use Google Analytics, Mixpanel, or Hotjar to track user interactions, page views, clicks, and heatmaps.
+5. **Custom Monitoring**
+  - Add health checks or heartbeat pings to backend APIs your React app calls.
+  - Track API response times and errors with interceptors (e.g., Axios interceptors).
+6. **Best Practices**
+  - Add Error Boundaries to catch UI errors gracefully.
+  - Use React Profiler API to identify bottlenecks.
+  - Monitor bundle size with tools like webpack-bundle-analyzer to keep app performant.
