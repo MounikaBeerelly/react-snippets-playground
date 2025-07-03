@@ -1,6 +1,6 @@
 # React Interview Questions and Answers
 
-### What is React ?
+## What is React ?
 React is a JavaScript library developed by Facebook (now Meta) for building user interfaces, especially for single-page applications (SPAs).
 
 #### Key Points:
@@ -13,7 +13,7 @@ Instead of telling the DOM how to change (imperative), you describe what the UI 
 4. **Virtual DOM**
 React uses a virtual DOM to optimize rendering and update only what’s necessary.
 
-### Why React is popular compared to other frameworks like Angular, Vue, etc. ?
+## Why React is popular compared to other frameworks like Angular, Vue, etc. ?
 React is popular compared to other frameworks (like Angular, Vue, etc.) because of several key advantages that appeal to both developers and companies. Here's a breakdown of why:
 1. **Component-Based Architecture**
 - React encourages building UI using reusable, isolated components, making large applications easier to manage, test, and scale.
@@ -82,7 +82,7 @@ React is popular compared to other frameworks (like Angular, Vue, etc.) because 
   - You want the best of both React and Angular with simplicity
   - Company	Uses - Alibaba, Xiaomi, GitLab, Laravel
 
-### How to handle errors in React.js ?
+## How to handle errors in React.js ?
 In React.js, you can handle errors in three main ways, depending on the type of error you're dealing with:
 1. **Runtime Errors in UI – Use Error Boundaries (Class Components Only)**
 React provides a concept called Error Boundaries to catch JavaScript errors in the component tree (e.g., rendering, lifecycle methods).
@@ -186,7 +186,8 @@ function Form() {
 To monitor and log errors in production:
   - Use tools like Sentry, LogRocket, New Relic, or Datadog
   - Send caught errors to a backend logging service via fetch or axios
-### How to check the execution time of a JavaScript function?
+    
+## How to check the execution time of a JavaScript function?
 1. **console.time() and console.timeEnd()**
   - This is the simplest and most readable way.
   ```
@@ -240,7 +241,7 @@ function exampleFunction() {
   exampleFunction();
   ```
 
-### How to monitor React code?
+## How to monitor React code?
 Monitoring React code means tracking the health, performance, errors, and user interactions of your React application in real time, both in development and production. Here’s how you can monitor React code effectively:
 1. **Error Monitoring**
   - Use tools like:
@@ -268,3 +269,36 @@ Monitoring React code means tracking the health, performance, errors, and user i
   - Add Error Boundaries to catch UI errors gracefully.
   - Use React Profiler API to identify bottlenecks.
   - Monitor bundle size with tools like webpack-bundle-analyzer to keep app performant.
+
+## How to handle 1000s of APIs in React application?
+Handling thousands of APIs in a React application requires a well-structured architecture that supports scalability, maintainability, and performance. 
+
+When working with hundreds or thousands of APIs in a React application, I focus on organizing API communication through a layered architecture and reusable utilities. Here’s how I handle it:
+- **Centralized API Layer:** I create a dedicated api/ directory with modular service files. Each file handles related endpoints—for example, userService.js, orderService.js, etc. This keeps API logic isolated from components.
+- **Axios Instance with Interceptors:** I use a configured Axios instance that handles base URL, headers, authentication tokens, error handling, and logging. This ensures consistency across all API calls and reduces repetition.
+- **Code Generation (Optional):** For large APIs, especially REST or GraphQL, I use tools like Swagger Codegen, OpenAPI Generator, or GraphQL Codegen to auto-generate request functions and types, which improves speed and accuracy.
+- **Caching and Performance:** I use libraries like React Query or TanStack Query to manage API calls, caching, and background refreshing. This reduces the number of network requests and improves user experience.
+- **Error and Loading State Abstraction:** I abstract common states (loading, error, empty) into reusable components or hooks, which avoids duplicating logic across screens.
+Pagination & Throttling: For endpoints returning large datasets, I implement pagination and debounce input-based APIs to reduce load and improve performance.
+- **Scalable Folder Structure:** I follow a feature-based folder structure and colocate related APIs with the corresponding UI components or hooks to maintain code clarity as the app scales.
+
+## When multiple APIs run at the same time in React, and how to detect which one failed?
+When multiple APIs are triggered in parallel, I use Promise.allSettled() instead of Promise.all. It allows me to check the status of each individual request and gracefully handle failures. I log errors, show fallback UI, and ensure successful APIs still render their data.
+
+## How to handle 1000 of rows in react tables?
+When rendering thousands of rows in a React table, I focus on performance and user experience. I use techniques like pagination, virtual scrolling, and lazy loading to avoid blocking the main thread and improve rendering efficiency. Here's how I typically approach it:
+1. **Pagination** – Load and display data in smaller chunks (e.g., 50 or 100 rows per page).
+2. **Virtualization** – Use libraries like react-window or react-virtualized to render only visible rows in the viewport.
+3. **Debouncing/Throttling** – For filtering and searching large datasets, I debounce the input to reduce re-renders.
+4. **Server-Side Fetching** – For very large datasets, I load data page-by-page from the backend using query parameters.
+5. **Table Libraries** – I prefer libraries like React Table, TanStack Table, or AG Grid, which support large datasets, virtualization, sorting, filtering, and more.
+
+## How to handle dynamic routes in React?
+I handle dynamic routes in React using React Router. I define dynamic route paths using :param syntax—for example, /user/:id. Then, inside the component, I extract the parameter using the useParams() hook. This helps me render dynamic pages like user profiles, product details, or blog posts based on URL parameters.
+
+## How to handle multi-forms in React?
+Handling multi-step forms (multi-forming) in React involves breaking a large form into smaller, manageable steps (or pages), while maintaining a shared form state. This improves UX and keeps the form structured.
+
+To handle multi-step forms in React, I split the form into separate components for each step and maintain a shared state—either in a parent component or using a state management library like Redux or Zustand. I control the current step using a step state variable and render the corresponding form component conditionally. I also validate each step individually and only allow progression when it's valid. At the end, I submit the combined data to the backend.
+
+##  
